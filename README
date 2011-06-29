@@ -1,0 +1,34 @@
+django-fts-odeon is a fork of django-fts ( http://code.google.com/p/django-fts/ )
+The only supported back-end is PostgreSQL
+
+Dependencies:
+- Django
+- PostgreSQL
+- South
+
+Install:
+- add "FTS_BACKEND = 'pgsql://'" in settings.py and "fts" to INSTALLED_APPS
+- ./manage.py migrate fts
+
+Usage:
+- subclass your model from fts.SearchableModel
+- create a custom manager with the list of fields that should be indexed (CharField and TextField only)
+
+class Blog(fts.SearchableModel):
+    title = models.CharField(max_length=100)
+    body = models.TextField()
+    search_objects = fts.SearchManager(fields=('title', 'body')) # index both fields
+    
+- create FTS indices with ./manage.py create_fts_indices
+- if you need to update by hand all the search indices for some reason, you can do "./manage.py update_fts_indices". Normally, the indices are always up to date because postgres takes care of them on each insert/update/delete.
+
+- getting the results ordered by rank in postgres (the rank field's name is not important. Just avoid any clashes with existing fields):
+  Blog.search_objects.search('foo bar', rank_field='rank')
+
+- highlighting results (highlight_field is the actual model field where you want the highlighting done. The modified text will be placed in a new field called highlight_field+'_highlight'):
+
+for blog in Blog.search_objects.search('foo bar', highlight_field='body'):
+    print blog.body_highlight
+
+- see fts_test/tests.py for more examples
+

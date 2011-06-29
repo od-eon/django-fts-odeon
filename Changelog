@@ -1,0 +1,8 @@
+June 29, 2011
+- API changed by implementing a custom queryset so the custom methods survive chaining. Only the pgsql backend was upgraded.
+- fetch distinct rows in pgsql
+- removed __call__()
+- new management command: create_fts_indices
+- new management command: update_fts_indices
+- result highlighting support
+
