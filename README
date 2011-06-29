@@ -7,7 +7,7 @@ Dependencies:
 - South
 
 Install:
-- add "FTS_BACKEND = 'pgsql://'" in settings.py and "fts" to INSTALLED_APPS
+- add "FTS_BACKEND = 'pgsql://' " in settings.py and "fts" to INSTALLED_APPS
 - ./manage.py migrate fts
 
 Usage:
