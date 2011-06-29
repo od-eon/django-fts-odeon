@@ -4,7 +4,6 @@ The only supported back-end is PostgreSQL
 Dependencies:
 - Django
 - PostgreSQL
-- South
 
 Install:
 - add "FTS_BACKEND = 'pgsql://' " in settings.py and "fts" to INSTALLED_APPS
@@ -31,4 +30,7 @@ for blog in Blog.search_objects.search('foo bar', highlight_field='body'):
     print blog.body_highlight
 
 - see fts_test/tests.py for more examples
+
+website: http://od-eon.com/labs/django-fts-odeon/
+contact: developers@od-eon.com
 
